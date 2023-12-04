@@ -8,17 +8,14 @@ const useServerGoods = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/products?page=${page}&pageSize=10`, {
-        method: 'GET',
-        mode: 'cors', // This enables CORS handling
-        headers: {
-          'Content-Type': 'application/json',
-          'Origin': 'http://localhost:3000', // Specify the origin of your request
-        },
-      });      const data = await response.json();
+      const response = await fetch(`http://localhost:8080/products?page=${page}&pageSize=5`)
+      const data = await response.json();
 
-      if (Array.isArray(data.products)) {
+      if (data && Array.isArray(data.products)) {
         setProducts((prevProducts) => [...prevProducts, ...data.products]);
+        setPage(page + 1);
+      } else if (Array.isArray(data)) {
+        setProducts((prevProducts) => [...prevProducts, ...data]);
         setPage(page + 1);
       } else {
         setError(new Error('Неверный формат данных с сервера'));
