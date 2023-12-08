@@ -8,7 +8,7 @@ const useServerGoods = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/products?page=${page}&pageSize=5`)
+      const response = await fetch(`http://localhost:8080/products?page=${page}`)
       const data = await response.json();
 
       if (data && Array.isArray(data.products)) {
@@ -29,7 +29,6 @@ const useServerGoods = () => {
 
   useEffect(() => {
     fetchProducts();
-    // eslint-disable-next-line
   }, []);
 
   const loadMore = () => {
